@@ -1,0 +1,29 @@
+* {
+    font-family: Chilanka;
+    font-size: 14pt;
+    color: #000;
+}
+
+.caixa {
+    width: 150px;
+    height: 40px;
+    border: solid 2px #000;
+    border-radius: 15px;
+    margin: 10px;
+}
+
+.botão {
+    width: 150px;
+    height: 40px;
+    background-color: #c33;
+    border: none;
+    outline: none;
+    border-radius: 15px;
+    margin: 10px;
+    color: #fff;
+}
+
+.opções {
+    border: solid 2px #000;
+    border-radius: 15px;
+}
