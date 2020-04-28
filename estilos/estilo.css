@@ -10,6 +10,7 @@
     border: solid 2px #000;
     border-radius: 15px;
     margin: 10px;
+    text-align: center;
 }
 
 .botão {
@@ -21,9 +22,15 @@
     border-radius: 15px;
     margin: 10px;
     color: #fff;
+    transition: all 0.2s;
 }
 
-.opções {
+.botão:hover {
+    transform: scale(1.1);
+    background-color: #33c;
+}
+
+.opções {   /* Fieldset*/
     border: solid 2px #000;
     border-radius: 15px;
 }
