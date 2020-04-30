@@ -21,6 +21,8 @@
     outline: none;
     border-radius: 15px;
     margin: 10px;
+    padding: 10px;
+    text-decoration: none;
     color: #fff;
     transition: all 0.2s;
 }
@@ -33,4 +35,16 @@
 .opções {   /* Fieldset*/
     border: solid 2px #000;
     border-radius: 15px;
+}
+
+.títulos {
+    font-size: 30pt;
+    font-weight: bold;
+    color: #333;
+}
+
+.subtítulos {
+    font-size: 20pt;
+    font-weight: normal;
+    color: #333;
 }
