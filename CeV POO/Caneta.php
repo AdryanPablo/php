@@ -2,13 +2,13 @@
 
 class Caneta {
 
-    var $modelo;
-    var $cor;
-    var $ponta;
-    var $carga;
-    var $tampada;
+    public $modelo;
+    public $cor;
+    private $ponta;
+    protected $carga;
+    protected $tampada;
 
-    function escrever () {
+    public function escrever () {
 
         if ($this -> tampada) {
 
@@ -22,13 +22,13 @@ class Caneta {
 
     }
 
-    function tampar () {
+    public function tampar () {
 
         $this -> tampada = true;
 
     }
 
-    function destampar () {
+    public function destampar () {
 
         $this -> tampada = false;
 
