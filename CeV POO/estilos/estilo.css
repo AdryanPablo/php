@@ -1,0 +1,50 @@
+* {
+    font-family: Chilanka;
+    font-size: 14pt;
+    color: #000;
+}
+
+.caixa {
+    width: 150px;
+    height: 40px;
+    border: solid 2px #000;
+    border-radius: 15px;
+    margin: 10px;
+    text-align: center;
+}
+
+.botão {
+    width: 150px;
+    height: 40px;
+    background-color: #c33;
+    border: none;
+    outline: none;
+    border-radius: 15px;
+    margin: 10px;
+    padding: 10px;
+    text-decoration: none;
+    color: #fff;
+    transition: all 0.2s;
+}
+
+.botão:hover {
+    transform: scale(1.1);
+    background-color: #33c;
+}
+
+.opções {   /* Fieldset*/
+    border: solid 2px #000;
+    border-radius: 15px;
+}
+
+.títulos {
+    font-size: 30pt;
+    font-weight: bold;
+    color: #333;
+}
+
+.subtítulos {
+    font-size: 20pt;
+    font-weight: normal;
+    color: #333;
+}
