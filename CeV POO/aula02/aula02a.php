@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PHP POO - Aula 02 a</title>
-    <link rel="stylesheet" href="estilos/estilo.css">
+    <link rel="stylesheet" href="../estilos/estilo.css">
 
 </head>
 <body>
@@ -18,8 +18,8 @@
 
             $caneta1 = new Caneta;
             $caneta1 -> cor = "Azul";
-            //$caneta1 -> ponta = 0.5;
-            //$caneta1 -> tampada = false;
+            $caneta1 -> ponta = 0.5;
+            $caneta1 -> tampada = false;
             //$caneta1 -> tampada = true;
 
             $caneta1 -> escrever();
