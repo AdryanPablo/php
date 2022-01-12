@@ -12,14 +12,17 @@ class Caneta {
 
         if ($this -> tampada) {
 
-            echo "<p>Não dá pra escrever com a caneta tampada!</p>";
+            echo "<p>Não é possível escrever com a caneta tampada.</p>";
+
+        } else if ($this -> carga == 0) {
+
+            echo "<p>Não é possível escrever com a caneta sem tinta.</p>";
 
         } else {
             
-            echo "<p>Estou escrevendo... </p>";
+            echo "<p>Estou escrevendo...</p>";
 
         }
-
     }
 
     public function tampar () {
@@ -33,5 +36,4 @@ class Caneta {
         $this -> tampada = false;
 
     }
-
 }

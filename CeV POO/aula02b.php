@@ -16,7 +16,6 @@
         require_once 'Chave.php';
 
         $chaveQuarto = new Chave;
-
         $chaveQuarto -> porta = "Quarto";
         $chaveQuarto -> abrirPorta($chaveQuarto -> porta);
         $chaveQuarto -> fecharPorta($chaveQuarto -> porta);

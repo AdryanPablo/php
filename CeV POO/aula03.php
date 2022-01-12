@@ -12,7 +12,6 @@
 <body>
 
     <pre>
-
         <?php
 
             require_once 'Caneta.php';
@@ -27,7 +26,6 @@
             print_r($canetaAzul);
 
         ?>
-
     </pre>
     
 </body>

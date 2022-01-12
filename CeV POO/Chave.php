@@ -20,5 +20,4 @@ class Chave {
         echo "<p>A porta do(a) $local está fechada.</p>";
 
     }
-        
 }
