@@ -7,36 +7,63 @@ class Lutador {
     private $idade;
     private $altura;
     private $peso;
+    private $imc;
     private $categoria;
     private $vitorias;
     private $derrotas;
     private $empates;
+    private $forca;
+    private $invencibilidade;
+    private $placar;
 
     public function apresentar() {
 
-        echo "<p>===== {$this -> getNome()} =====</p>";
-        echo "<p>Nacionalidade: {$this -> getNacionalidade()}</p>";
-        echo "<p>Idade: {$this -> getIdade()} anos</p>";
-        echo "<p>Altura: {$this -> getAltura()} m</p>";
-        echo "<p>Peso: {$this -> getPeso()} kg</p>";
-        echo "<p>Categoria: {$this -> getCategoria()}</p>";
-        echo "<p>Vitórias: {$this -> getVitorias()}</p>";
-        echo "<p>Derrotas: {$this -> getDerrotas()}</p>";
-        echo "<p>Empates: {$this -> getEmpates()}</p>";
-        echo "<p>====================</p>";
+        echo "<div class='cartaApresentacao'>";
+
+            echo "<h3>{$this -> getNome()}</h3>";
+            echo "<p>Nacionalidade: {$this -> getNacionalidade()}</p>";
+            echo "<p>Idade: {$this -> getIdade()} anos</p>";
+            echo "<p>Altura: {$this -> getAltura()} m</p>";
+            echo "<p>Peso: {$this -> getPeso()} kg</p>";
+            echo "<p>IMC: " . number_format($this -> getIMC(), 2) . "</p>";
+            echo "<p>Categoria: {$this -> getCategoria()}</p>";
+            echo "<p>Vitórias: {$this -> getVitorias()}</p>";
+            echo "<p>Derrotas: {$this -> getDerrotas()}</p>";
+            echo "<p>Empates: {$this -> getEmpates()}</p>";
+            echo "<p>Força: " . number_format($this -> getForca(), 2) . "</p>";
+            echo "<p>Invencibilidade: {$this -> getInvencibilidade()}</p>";
+
+        echo "</div>";
 
     }
 
-    public function status() {
+    public function mostrarStatus() {
 
-        echo "<p>===== {$this -> getNome()} =====<p>";
-        echo "<p>Peso: {$this -> getPeso()}</p>";
-        echo "<p>Categoria: {$this -> getCategoria()}</p>";
-        echo "<p>Vitórias: {$this -> getVitorias()}</p>";
-        echo "<p>Derrotas: {$this -> getDerrotas()}</p>";
-        echo "<p>Empates: {$this -> getEmpates()}</p>";
-        echo "<p>====================</p>";
+        echo "<div class='cartaStatus'>";
 
+            echo "<h3>{$this -> getNome()}</h3>";
+            echo "<p>Peso: {$this -> getPeso()}</p>";
+            echo "<p>Categoria: {$this -> getCategoria()}</p>";
+            echo "<p>Vitórias: {$this -> getVitorias()}</p>";
+            echo "<p>Derrotas: {$this -> getDerrotas()}</p>";
+            echo "<p>Empates: {$this -> getEmpates()}</p>";
+            echo "<p>Placar: {$this -> getPlacar()}";
+
+        echo "</div>";
+
+    }
+
+    public function podeLutar() {
+
+        if ($this -> getCategoria() !== 'Inválido') {
+
+            return true;
+
+        } else {
+
+            return false;
+
+        }
     }
 
     public function ganharLuta() {
@@ -57,19 +84,6 @@ class Lutador {
 
     }
 
-    public function podeLutar() {
-
-        if ($this -> getCategoria() !== 'Inválido') {
-
-            return true;
-
-        } else {
-
-            return false;
-
-        }
-    }
-
     public function __construct($nome, $nacionalidade, $idade, $altura, $peso, $vitorias, $derrotas, $empates) {
 
         $this -> setNome($nome);
@@ -77,9 +91,14 @@ class Lutador {
         $this -> setIdade($idade);
         $this -> setAltura($altura);
         $this -> setPeso($peso);
+        $this -> setCategoria();
+        $this -> setIMC();
         $this -> setVitorias($vitorias);
         $this -> setDerrotas($derrotas);
         $this -> setEmpates($empates);
+        $this -> setForca();
+        $this -> setInvencibilidade();
+        $this -> setPlacar(0);
         
     }
 
@@ -140,7 +159,18 @@ class Lutador {
     public function setPeso($peso) {
 
         $this -> peso = $peso;
-        $this -> setCategoria();
+
+    }
+
+    public function getIMC() {
+
+        return $this -> imc;
+
+    }
+
+    public function setIMC() {
+
+        $this -> imc = ($this -> getPeso() / ($this -> getAltura()) ** 2);
 
     }
 
@@ -208,6 +238,42 @@ class Lutador {
     public function setEmpates($empates) {
 
         $this -> empates = $empates;
+
+    }
+
+    public function getForca() {
+
+        return $this -> forca;
+
+    }
+
+    public function setForca() {
+
+        $this -> forca = $this -> getIdade() * $this -> getIMC();
+
+    }
+
+    public function getInvencibilidade() {
+
+        return $this -> invencibilidade;
+
+    }
+
+    public function setInvencibilidade() {
+
+        $this -> invencibilidade = $this -> getVitorias() * 3 + $this -> getDerrotas() * -1 + $this -> getEmpates() * 1;
+
+    }
+
+    public function getPlacar() {
+
+        return $this -> placar;
+
+    }
+
+    public function setPlacar($placar) {
+
+        $this -> placar = $placar;
 
     }
 }

@@ -7,10 +7,9 @@ class Luta {
     private $desafiante;
     private $desafiado;
     private $tipo;
-    private $rounds;
     private $aprovada;
 
-    public function marcarLuta($desafiante, $desafiado, $tipo, $rounds) {
+    public function marcarLuta($desafiante, $desafiado, $tipo) {
 
         if ($desafiante -> podeLutar() && $desafiado -> podeLutar()) {
 
@@ -22,9 +21,6 @@ class Luta {
                     $this -> setDesafiante($desafiante);
                     $this -> setDesafiado($desafiado);
                     $this -> setTipo($tipo);
-                    $this -> setRounds($rounds);
-
-                    echo "<p>Luta entre {$this -> getDesafiante() -> getNome()} e {$this -> getDesafiado() -> getNome()} aprovada!</p>";
 
                 } else {
 
@@ -47,55 +43,77 @@ class Luta {
         }
     }
 
-    public function lutarAleatoriamente() {
+    public function lutar() {
 
         if ($this -> isAprovada()) {
 
-            echo "<h2>===== {$this -> getDesafiante() -> getNome()} vs {$this -> getDesafiado() -> getNome()} =====</h2>";
-            echo "<p>Chegou a grande hora!</p>";
+            echo "<section class='luta'>";
 
-            echo "<p>Deste lado, o desafiante:</p>";
-            $this -> desafiante -> apresentar();
+                if ($this -> getTipo() === 'Aleatória') {
 
-            echo "<p>Do outro lado, o desafiado: </p>";
-            $this -> desafiado -> apresentar();
+                    $this -> apresentarLutadores();
 
-            echo "<p>Que comece a luta!</p>";
+                    echo "<p>Que comece a luta aleatória!</p>";
 
-            $vencedor = random_int(0, 2);
+                    $this -> desafiante -> setPlacar(random_int(0, 2));
+                    $this -> desafiado -> setPlacar(random_int(0, 2));
 
-            switch ($vencedor) {
+                    $this -> quemVenceu();
 
-                case (0): // Empate
+                } else if ($this -> getTipo() === 'Mérito') {
 
-                    $this -> getDesafiante() -> empatarLuta();
-                    $this -> getDesafiado() -> empatarLuta();
+                    $this -> apresentarLutadores();
 
-                    echo "<p>Empate!</p>";
-                    break;
+                    echo "<p>Que comece a luta por mérito!</p>";
 
-                case (1): // Vitória do desafiante
+                    $this -> desafiante -> setPlacar(0);
+                    $this -> desafiado -> setPlacar(0);
 
-                    $this -> getDesafiante() -> ganharLuta();
-                    $this -> getDesafiado() -> perderLuta();
+                    $this -> compararForca($this -> desafiante -> getForca(), $this -> desafiado -> getForca());
+                    $this -> compararInvencibilidade($this -> desafiante -> getInvencibilidade(), $this -> desafiado -> getInvencibilidade());
 
-                    echo "<p>Vitória de {$this -> getDesafiante() -> getNome()}!</p>";
-                    break;
+                    $this -> quemVenceu();
 
-                case (2): // Vitória do desafiado
+                } else {
 
-                    $this -> getDesafiante() -> perderLuta();
-                    $this -> getDesafiado() -> ganharLuta();
+                    echo "</section>";
+                    echo "<p>Tipo de luta inválido!</p>";
 
-                    echo "<p>Vitória de {$this -> getDesafiado() -> getNome()}!</p>";
-                    break;
-            }
+                }
+
+            echo "</section>";
 
         } else {
 
             echo "<p>A luta não pode acontecer!</p>";
 
         }
+    }
+
+    public function apresentarLutadores() {
+
+        echo "<h2>{$this -> getDesafiante() -> getNome()} vs {$this -> getDesafiado() -> getNome()}</h2>";
+        
+        echo "<section class='apresentacao'>";
+
+            echo "<article class='apresentacaoDesafiante'>";
+
+                echo "<p>Deste lado, o desafiante: </p>";
+
+                $this -> desafiante -> apresentar();
+
+            echo "</article>";
+
+            echo "<article class='apresentacaoDesafiado'>";
+
+                echo "<p>Do outro lado, o desafiado: </p>";
+                
+                $this -> desafiado -> apresentar();
+
+            echo "</article>";
+
+        echo "</section>";
+
     }
 
     public function isMesmaCategoria($desafiante, $desafiado) {
@@ -123,6 +141,74 @@ class Luta {
 
         }
     }
+
+    public function compararForca($forcaDesafiante, $forcaDesafiado) {
+
+        if ($forcaDesafiante > $forcaDesafiado) {
+                    
+            $this -> desafiante -> setPlacar($this -> desafiante -> getPlacar() + 1);
+
+        } else if ($forcaDesafiante < $forcaDesafiado) {
+
+            $this -> desafiado -> setPlacar($this -> desafiado -> getPlacar() + 1);
+
+        } else {
+
+            $this -> desafiante -> setPlacar($this -> desafiante -> getPlacar() + 1);
+            $this -> desafiado -> setPlacar($this -> desafiado -> getPlacar() + 1);
+
+        }
+    }
+
+    public function compararInvencibilidade($invencibilidadeDesafiante, $invencibilidadeDesafiado) {
+
+        if ($invencibilidadeDesafiante > $invencibilidadeDesafiado) {
+
+            $this -> desafiante -> setPlacar($this -> desafiante -> getPlacar() + 1);
+
+        } else if ($this -> desafiante -> getInvencibilidade() < $this -> desafiado -> getInvencibilidade()) {
+
+            $this -> desafiado -> setPlacar($this -> desafiado -> getPlacar() + 1);
+            
+        } else {
+
+            $this -> desafiante -> setPlacar($this -> desafiante -> getPlacar() + 1);
+            $this -> desafiado -> setPlacar($this -> desafiado -> getPlacar() + 1);
+
+        }
+    }
+
+    public function quemVenceu() {
+
+        if ($this -> desafiante -> getPlacar() > $this -> desafiado -> getPlacar()) { // Vitória do desafiante
+
+            $this -> getDesafiante() -> ganharLuta();
+            $this -> getDesafiado() -> perderLuta();
+
+            echo "<p>Vitória de {$this -> getDesafiante() -> getNome()}!</p>";
+
+        } else if($this -> desafiante -> getPlacar() < $this -> desafiado -> getPlacar()) { // Vitória do desafiado.
+
+            $this -> getDesafiante() -> perderLuta();
+            $this -> getDesafiado() -> ganharLuta();
+
+            echo "<p>Vitória de {$this -> getDesafiado() -> getNome()}!</p>";
+
+        } else {
+
+            $this -> getDesafiante() -> empatarLuta();
+            $this -> getDesafiado() -> empatarLuta();
+
+            echo "<p>Empate!</p>";
+
+        }
+
+        $this -> desafiante -> mostrarStatus();
+        $this -> desafiado -> mostrarStatus();
+
+    }
+
+    // Métodos Especiais
 
     public function getDesafiante() {
 
@@ -157,18 +243,6 @@ class Luta {
     public function setTipo($tipo) {
 
         $this -> tipo = $tipo;
-
-    }
-
-    public function getRounds() {
-
-        return $this -> rounds;
-
-    }
-
-    public function setRounds($rounds) {
-
-        $this -> rounds = $rounds;
 
     }
 
